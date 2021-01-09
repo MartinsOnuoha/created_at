@@ -2,6 +2,10 @@ require('dotenv').config()
 
 const express = require('express');
 const axios = require('axios');
+const format = require('date-fns/format')
+const subDays = require('date-fns/subDays');
+const { create } = require('hbs');
+
 
 const app = express();
 const port = process.env.PORT;
@@ -20,7 +24,7 @@ app.get('/get-data', async (req, res) => {
       private,
       description,
       html_url,
-      created_at,
+      created_at: format(new Date(created_at), 'PPPpp'),
       avatar: result.owner.avatar_url
     })
   }

@@ -42,14 +42,18 @@
       font-weight: 500;
       background-color: bisque;
     }
+    p {
+      font-family: 'Xanh Mono', monospace;
+    }
     .action {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      background-image: url('https://i.pinimg.com/originals/ef/8b/2a/ef8b2ad40498aa24ca1467590710c507.jpg');
+      background-color: #f8f8f8;
+      /*background-image: url('https://i.pinimg.com/originals/ef/8b/2a/ef8b2ad40498aa24ca1467590710c507.jpg');
       background-repeat: no-repeat;
       background-position: center;
-      background-size: cover;
+      background-size: cover;*/
       height: inherit;
       text-align: center;
       align-items: center;
@@ -68,6 +72,21 @@
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .bg-blur {
+      box-shadow: inset 0 0 0 200px rgba(255,255,255,0.05);
+      filter: blur(10px);
+      background-image: inherit;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      height: inherit;
+      width: inherit;
+      position: relative;
+      disp
     }
     .action-btn {
       margin-top: 20px;
@@ -88,43 +107,89 @@
     .action-btn button:hover {
       background-color: bisque;
       color: #000;
+      box-shadow: 10px 5px 0px black;
     }
     .repo_avatar {
       height: 50px;
       width: 50px;
     }
+    a {
+      color: #000;
+    }
     .card {
-
+      background-color: #FFF;
+      width: 70%;
+      min-height: 6rem;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      box-shadow: 10px 5px 0px black;
+      /* position: absolute; */
+      display: hi;
+    }
+    .date {
+      font-size: 20px;
+    }
+    .card-image {
+      display: flex;
+    }
+    .repo_avatar {
+      border-radius: 50%;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="image"></div>
+    <div class="image" id="image"></div>
     <div class="action">
-      <div class="card">
-        <img class="repo_avatar" src="https://cdn.vox-cdn.com/thumbor/917zVksXwuBg1Er7p3EgJLm4myg=/0x0:4492x2000/1400x1400/filters:focal(1385x549:2103x1267):format(jpeg)/cdn.vox-cdn.com/uploads/chorus_image/image/52156263/_Adam_s_Creation_Sistine_Chapel_ceiling__by_Michelangelo_JBU33cut.0.jpeg" alt="">
-      </div>
       <h1>~ Created AT ~</h1>
       <p class="tagline">Discover when a repository was created</p>
       <div class="search">
         <input type="text" placeholder="Paste repository URL">
       </div>
       <div class="action-btn">
-        <button onclick="fetchDate()" class="btn">Show Me!</button>
+        <button onclick="fetchData()" class="btn">Show Me!</button>
       </div>
 
     </div>
   </div>
 
   <script>
-    function fetchDate() {
+    function fetchData() {
+      // hide card
+      // document.getElementById('card').style.display = 'none';
+      const cardContainer = document.getElementById('image')
+      const template = document.createElement('template');
+
       fetch('/get-data?url=https://api.github.com/repos/defunkt/fixture_scenarios_builder')
         .then((response) => response.json())
         .then(data => {
-          console.log(data)
+
+          let value = `
+            <div class="card" id="card">
+              <div class="card-image">
+                <img class="repo_avatar" src="${data.avatar}" alt="">
+                <p style="margin-left: 10px;"><a href="${data.html_url}">${trunCate(data.full_name, 10)}</a></p>
+              </div>
+              <div class="date">${data.created_at}</div>
+            </div>
+          `;
+          value = value.trim();
+          template.innerHTML = value
+          cardContainer.appendChild(template.content.firstChild)
         })
       console.log('HELLO')
+    }
+    function formatDate(date) {
+
+    }
+
+    function trunCate(val, length) {
+      if (val.length > length) {
+        return `${val.substr(0, length)}...`
+      }
+      return val
     }
   </script>
 </body>
