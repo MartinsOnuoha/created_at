@@ -103,6 +103,7 @@
       color: #FFF;
       border: none;
       transition: 0.3s;
+      outline: none;
     }
     .action-btn button:hover {
       background-color: bisque;
@@ -112,6 +113,7 @@
     .repo_avatar {
       height: 50px;
       width: 50px;
+      border: 2px solid bisque;
     }
     a {
       color: #000;
@@ -129,7 +131,8 @@
       display: hi;
     }
     .date {
-      font-size: 20px;
+      font-size: 16px;
+      font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     }
     .card-image {
       display: flex;
@@ -146,7 +149,7 @@
       <h1>~ Created AT ~</h1>
       <p class="tagline">Discover when a repository was created</p>
       <div class="search">
-        <input type="text" placeholder="Paste repository URL">
+        <input id="url" type="text" placeholder="Paste repository URL">
       </div>
       <div class="action-btn">
         <button onclick="fetchData()" class="btn">Show Me!</button>
@@ -157,12 +160,25 @@
 
   <script>
     function fetchData() {
+
       // hide card
       // document.getElementById('card').style.display = 'none';
       const cardContainer = document.getElementById('image')
       const template = document.createElement('template');
+      const card = document.getElementById('card');
+      const url = document.getElementById('url').value.replace('.git', '')
 
-      fetch('/get-data?url=https://api.github.com/repos/defunkt/fixture_scenarios_builder')
+      if (!url) {
+        return false;
+      }
+      const pathArray = url.split('/');
+      const path = `${pathArray[pathArray.length - 2]}/${pathArray[pathArray.length - 1]}`
+      console.log(`https://api.github.com/repos/${path}`)
+
+      if (card) {
+        card.remove()
+      }
+      fetch(`/get-data?url=https://api.github.com/repos/${path}`)
         .then((response) => response.json())
         .then(data => {
 
