@@ -2,7 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title itemprop="name">Created At - Check how old a repository is 👴🏼</title>
+  <meta property="og:title" content="Created At - Check how old a Github repository is 👴🏼" />
+  <meta name="twitter:title" content="Created At - Check how old a Github repository is 👴🏼" />
+  <meta itemprop="name" content="Created At - Check how old a Github repository is 👴🏼" />
+  <meta name="application-name" content="Created At - Check how old a Github repository is 👴🏼" />
+  <meta property="og:site_name" content="Created At - Check how old a Github repository is 👴🏼" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Check how old a Github repository is 👴🏼 and when it was created.">
+  <meta name="description" content="Check how old a Github repository is 👴🏼 and  when it was created." />
+  <meta itemprop="description" content="Check how old a Github repository is 👴🏼 and when it was created." />
+  <meta property="og:description" content="Check how old a Github repository is 👴🏼 and when it was created." />
+  <meta name="twitter:description" content="Check how old a Github repository is 👴🏼 and when it was created." />
+
+  <base href="https://created-at.herokuapp.com/">
+  <link rel="canonical" href="https://created-at.herokuapp.com/" itemprop="url" />
+  <meta name="url" content="https://created-at.herokuapp.com/" />
+  <meta name="twitter:url" content="https://created-at.herokuapp.com/" />
+  <meta property="og:url" content="https://created-at.herokuapp.com/" />
+
+  <meta itemprop="image" content="https://cdn.vox-cdn.com/thumbor/917zVksXwuBg1Er7p3EgJLm4myg=/0x0:4492x2000/1400x1400/filters:focal(1385x549:2103x1267):format(jpeg)/cdn.vox-cdn.com/uploads/chorus_image/image/52156263/_Adam_s_Creation_Sistine_Chapel_ceiling__by_Michelangelo_JBU33cut.0.jpeg" />
+  <meta property="og:image" content="https://cdn.vox-cdn.com/thumbor/917zVksXwuBg1Er7p3EgJLm4myg=/0x0:4492x2000/1400x1400/filters:focal(1385x549:2103x1267):format(jpeg)/cdn.vox-cdn.com/uploads/chorus_image/image/52156263/_Adam_s_Creation_Sistine_Chapel_ceiling__by_Michelangelo_JBU33cut.0.jpeg" />
+  <meta name="twitter:image" content="https://cdn.vox-cdn.com/thumbor/917zVksXwuBg1Er7p3EgJLm4myg=/0x0:4492x2000/1400x1400/filters:focal(1385x549:2103x1267):format(jpeg)/cdn.vox-cdn.com/uploads/chorus_image/image/52156263/_Adam_s_Creation_Sistine_Chapel_ceiling__by_Michelangelo_JBU33cut.0.jpeg" />
+  <meta name="twitter:image:src" content="https://cdn.vox-cdn.com/thumbor/917zVksXwuBg1Er7p3EgJLm4myg=/0x0:4492x2000/1400x1400/filters:focal(1385x549:2103x1267):format(jpeg)/cdn.vox-cdn.com/uploads/chorus_image/image/52156263/_Adam_s_Creation_Sistine_Chapel_ceiling__by_Michelangelo_JBU33cut.0.jpeg" />
+
+  <meta name="keywords" content="repository, github, age, check how old, how old is repository, view repository age, check repository age, check github repository age, see github repository age, how old is a repository, how old is github repository, " />
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Xanh+Mono&display=swap" rel="stylesheet">
   <link rel="shortcut icon" href="https://cdn.vox-cdn.com/thumbor/917zVksXwuBg1Er7p3EgJLm4myg=/0x0:4492x2000/1400x1400/filters:focal(1385x549:2103x1267):format(jpeg)/cdn.vox-cdn.com/uploads/chorus_image/image/52156263/_Adam_s_Creation_Sistine_Chapel_ceiling__by_Michelangelo_JBU33cut.0.jpeg" type="image/x-icon">
@@ -65,6 +93,13 @@
       justify-content: center;
       align-items: center;
     }
+    .age {
+      font-family: 'Amatic SC', cursive;
+      text-align: right;
+      padding-right: 2rem;
+      font-size: 20px;
+      color: #6d6d6d;
+    }
     .image {
       height: inherit;
       width: 100%;
@@ -74,6 +109,7 @@
       background-position: center;
       display: flex;
       align-items: center;
+      flex-direction: column;
       justify-content: center;
     }
     .bg-blur {
@@ -124,11 +160,14 @@
       min-height: 6rem;
       padding: 10px;
       display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-shadow: 10px 5px 0px black;
+    }
+    .card-container {
+      display: flex;
       align-items: center;
       justify-content: space-evenly;
-      box-shadow: 10px 5px 0px black;
-      /* position: absolute; */
-      display: hi;
     }
     .date {
       font-size: 16px;
@@ -184,23 +223,23 @@
 
           let value = `
             <div class="card" id="card">
-              <div class="card-image">
-                <img class="repo_avatar" src="${data.avatar}" alt="">
-                <p style="margin-left: 10px;"><a href="${data.html_url}">${trunCate(data.full_name, 10)}</a></p>
+              <div class="card-container">
+                <div class="card-image">
+                  <img class="repo_avatar" src="${data.avatar}" alt="">
+                  <p style="margin-left: 10px;"><a href="${data.html_url}">${trunCate(data.full_name, 10)}</a></p>
+                </div>
+                <div class="date">${data.created_at}</div>
               </div>
-              <div class="date">${data.created_at}</div>
+              <div class="age">
+                Created ${data.how_old === 0 ? 'This Year' : `${data.how_old} Years ago` }
+              </div>
             </div>
           `;
           value = value.trim();
           template.innerHTML = value
           cardContainer.appendChild(template.content.firstChild)
         })
-      console.log('HELLO')
     }
-    function formatDate(date) {
-
-    }
-
     function trunCate(val, length) {
       if (val.length > length) {
         return `${val.substr(0, length)}...`
