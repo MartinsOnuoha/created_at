@@ -9,18 +9,22 @@ const port = process.env.PORT;
 app.set('view engine', 'hbs')
 
 app.get('/get-data', async (req, res) => {
-  const result = await axios.get('https://api.github.com/repos/defunkt/fixture_scenarios_builder').then(result => result.data);
-  console.log(result);
-  const { full_name, private, description, html_url, created_at } = result
+  const url = req.query.url;
+  if (url) {
+    const result = await axios.get(`${url}`).then(result => result.data);
+    console.log(result);
+    const { full_name, private, description, html_url, created_at } = result
 
-  return res.json({
-    full_name,
-    private,
-    description,
-    html_url,
-    created_at,
-    avatar: result.owner.avatar_url
-  })
+    return res.json({
+      full_name,
+      private,
+      description,
+      html_url,
+      created_at,
+      avatar: result.owner.avatar_url
+    })
+  }
+  return res.status(400).json({ error: true, msg: 'provide a URL' })
 })
 
 app.get('/', (req, res) => {
