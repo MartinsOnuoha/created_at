@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Xanh+Mono&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="https://cdn.vox-cdn.com/thumbor/917zVksXwuBg1Er7p3EgJLm4myg=/0x0:4492x2000/1400x1400/filters:focal(1385x549:2103x1267):format(jpeg)/cdn.vox-cdn.com/uploads/chorus_image/image/52156263/_Adam_s_Creation_Sistine_Chapel_ceiling__by_Michelangelo_JBU33cut.0.jpeg" type="image/x-icon">
+  <title>Created At</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+    }
+    .container {
+      height: inherit;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+    input {
+      padding: 15px;
+      width: 22rem;
+    }
+    input:focus {
+      outline: none !important;
+      border:2px solid bisque;
+      box-shadow: 0 0 10px bisque;
+      border-radius: none;
+    }
+    ::selection {
+      background-color: bisque;
+    }
+    h1 {
+      font-family: 'Amatic SC', cursive;
+      font-size: 4rem;
+      margin: 0;
+    }
+    .tagline {
+      font-family: 'Xanh Mono', monospace;
+      font-weight: 500;
+      background-color: bisque;
+    }
+    .action {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-image: url('https://i.pinimg.com/originals/ef/8b/2a/ef8b2ad40498aa24ca1467590710c507.jpg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      height: inherit;
+      text-align: center;
+      align-items: center;
+      width: 100%;
+    }
+    .search {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .image {
+      height: inherit;
+      width: 100%;
+      background-image: url('https://cdn.vox-cdn.com/thumbor/917zVksXwuBg1Er7p3EgJLm4myg=/0x0:4492x2000/1400x1400/filters:focal(1385x549:2103x1267):format(jpeg)/cdn.vox-cdn.com/uploads/chorus_image/image/52156263/_Adam_s_Creation_Sistine_Chapel_ceiling__by_Michelangelo_JBU33cut.0.jpeg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+    .action-btn {
+      margin-top: 20px;
+      width: 100%;
+      text-align: center;
+    }
+    .action-btn button {
+      padding: 10px;
+      font-family: 'Amatic SC', cursive;
+      width: 30%;
+      font-size: 17px;
+      cursor: pointer;
+      background-color: #000;
+      color: #FFF;
+      border: none;
+      transition: 0.3s;
+    }
+    .action-btn button:hover {
+      background-color: bisque;
+      color: #000;
+    }
+    .repo_avatar {
+      height: 50px;
+      width: 50px;
+    }
+    .card {
+
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="image"></div>
+    <div class="action">
+      <div class="card">
+        <img class="repo_avatar" src="https://cdn.vox-cdn.com/thumbor/917zVksXwuBg1Er7p3EgJLm4myg=/0x0:4492x2000/1400x1400/filters:focal(1385x549:2103x1267):format(jpeg)/cdn.vox-cdn.com/uploads/chorus_image/image/52156263/_Adam_s_Creation_Sistine_Chapel_ceiling__by_Michelangelo_JBU33cut.0.jpeg" alt="">
+      </div>
+      <h1>~ Created AT ~</h1>
+      <p class="tagline">Discover when a repository was created</p>
+      <div class="search">
+        <input type="text" placeholder="Paste repository URL">
+      </div>
+      <div class="action-btn">
+        <button onclick="fetchDate()" class="btn">Show Me!</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function fetchDate() {
+      fetch('/get-data?url=https://api.github.com/repos/defunkt/fixture_scenarios_builder')
+        .then((response) => response.json())
+        .then(data => {
+          console.log(data)
+        })
+      console.log('HELLO')
+    }
+  </script>
+</body>
+</html>
