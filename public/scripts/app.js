@@ -17,7 +17,7 @@ function fetchData() {
   if (card) {
     card.remove()
   }
-  fetch(`http://localhost:3000/get-data?url=https://api.github.com/repos/${path}`)
+  fetch(`/get-data?url=https://api.github.com/repos/${path}`)
     .then((response) => response.json())
     .then(data => {
 
